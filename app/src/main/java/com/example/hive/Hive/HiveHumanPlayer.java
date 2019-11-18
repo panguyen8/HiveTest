@@ -165,6 +165,7 @@ public class HiveHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             game.sendAction(action);
 
             piecePlacement = false;
+            moveReady = false;
             return true;
         } else if (!moveReady) {
 
