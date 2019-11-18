@@ -79,7 +79,6 @@ public class HiveHumanPlayer extends GameHumanPlayer implements View.OnTouchList
                 pieceChosen = 4;
                 break;
         }
-        moveReady = true;
         piecePlacement = true;
         game.sendAction(action);
     }
@@ -142,7 +141,7 @@ public class HiveHumanPlayer extends GameHumanPlayer implements View.OnTouchList
 
         //Logger.log("onTouch","Coord" + xCoord + " " + yCoord + " " +divider);
 
-        if (piecePlacement == true) {
+        if (piecePlacement) {
             xEnd = xCoord;
             yEnd = yCoord;
 
@@ -166,8 +165,8 @@ public class HiveHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             game.sendAction(action);
 
             piecePlacement = false;
-
-        } else if (moveReady == false) {
+            return true;
+        } else if (!moveReady) {
 
             xStart = xCoord;
             yStart = yCoord;
@@ -178,16 +177,18 @@ public class HiveHumanPlayer extends GameHumanPlayer implements View.OnTouchList
             surfaceView.invalidate();
 
             moveReady = true;
+            return true;
         } else  if (moveReady) {
-                xEnd = xCoord;
-                yEnd = yCoord;
-                HiveMoveAction action = new HiveMoveAction(this, xStart, yStart, xEnd, yEnd);
-                game.sendAction(action);
+            xEnd = xCoord;
+            yEnd = yCoord;
+            HiveMoveAction action = new HiveMoveAction(this, xStart, yStart, xEnd, yEnd);
+            game.sendAction(action);
 
             Logger.log("onTouch", "End: " + xEnd + " " + yEnd);
 
-                surfaceView.invalidate();
-                moveReady = false;
+            surfaceView.invalidate();
+            moveReady = false;
+            return true;
         }
 
         // register that we have handled the event
