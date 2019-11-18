@@ -77,10 +77,11 @@ public class HiveView extends SurfaceView {
         for (int y = 0; y < 12; y++) {
             for (int x = 0; x < 11; x++) {
                 if (y % 2 == 0) {
-
                     /*drawHexagon(canvas, x, y);*/
                     if (state.getPiece(x,y) == HiveGameState.piece.EMPTY) {
                         drawHexagon(canvas, x * 100, y * 66);
+                    } else if (state.getPiece(x,y) == HiveGameState.piece.TARGET) {
+                        drawTargetHexagon(canvas, x * 100, y * 66);
                     } else if (state.getPiece(x, y) == HiveGameState.piece.WBEE) {
                         drawWBee(canvas, x*100, y*66);
                     } else if (state.getPiece(x,y) == HiveGameState.piece.WBEETLE) {
@@ -106,6 +107,8 @@ public class HiveView extends SurfaceView {
                 } else {
                     if (state.board[x][y] == HiveGameState.piece.EMPTY) {
                         drawHexagon(canvas, x * 100 + 50, y * 66);
+                    } else if (state.board[x][y] == HiveGameState.piece.TARGET) {
+                        drawTargetHexagon(canvas, x * 100 + 50, y * 66);
                     } else if (state.getPiece(x, y) == HiveGameState.piece.WBEE) {
                         drawWBee(canvas, x*100 + 50, y*66);
                     } else if (state.getPiece(x,y) == HiveGameState.piece.WBEETLE) {

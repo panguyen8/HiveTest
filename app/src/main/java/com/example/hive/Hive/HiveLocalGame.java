@@ -176,20 +176,60 @@ public class HiveLocalGame extends LocalGame {
             HiveMoveAction move = (HiveMoveAction) action;
 
             if (hgs.getTurn() == 0) {
-                if (hgs.board[move.endRow][move.endCol] != HiveGameState.piece.EMPTY) {
-                    return false;
+                boolean legal = false;
+
+                //Iterate through surrounding spots, ignoring the piece
+                //and 2 spots due to the board design
+                for (int i = move.endRow - 1; i < move.endRow + 2; i++) {
+                    for (int j = move.endCol - 1; j < move.endCol + 2; j++) {
+
+                        //Ignore certain spots
+                        if (hgs.board[i][j] == hgs.board[move.endRow][move.endCol] ||
+                                hgs.board[i][j] == hgs.board[move.endRow - 1][move.endCol - 1] ||
+                                hgs.board[i][j] == hgs.board[move.endRow + 1][move.endCol - 1]) {
+                            // Do nothing
+                        }
+
+                        else if (hgs.board[i][j] != HiveGameState.piece.EMPTY) {
+                            legal = true;
+                        }
+                    }
                 }
 
-                hgs.board[move.endRow][move.endCol] = hgs.board[move.startRow][move.startCol];
-                hgs.board[move.startRow][move.startCol] = HiveGameState.piece.EMPTY;
+                if (legal)
+                {
+                    hgs.board[move.endRow][move.endCol] = hgs.board[move.startRow][move.startCol];
+                    hgs.board[move.startRow][move.startCol] = HiveGameState.piece.EMPTY;
+                }
+
                 hgs.setTurn(1);
             } else {
-                if (hgs.board[move.endRow][move.endCol] != HiveGameState.piece.EMPTY) {
-                    return false;
+                boolean legal = false;
+
+                //Iterate through surrounding spots, ignoring the piece
+                //and 2 spots due to the board design
+                for (int i = move.endRow - 1; i < move.endRow + 2; i++) {
+                    for (int j = move.endCol - 1; j < move.endCol + 2; j++) {
+
+                        //Ignore certain spots
+                        if (hgs.board[i][j] == hgs.board[move.endRow][move.endCol] ||
+                                hgs.board[i][j] == hgs.board[move.endRow - 1][move.endCol - 1] ||
+                                hgs.board[i][j] == hgs.board[move.endRow + 1][move.endCol - 1]) {
+                            // Do nothing
+                        }
+
+                        else if (hgs.board[i][j] != HiveGameState.piece.EMPTY) {
+                            legal = true;
+                        }
+                    }
                 }
 
-                hgs.board[move.endRow][move.endCol] = hgs.board[move.startRow][move.startCol];
-                hgs.board[move.startRow][move.startCol] = HiveGameState.piece.EMPTY;
+                if (legal)
+                {
+                    hgs.board[move.endRow][move.endCol] = hgs.board[move.startRow][move.startCol];
+                    hgs.board[move.startRow][move.startCol] = HiveGameState.piece.EMPTY;
+                }
+
                 hgs.setTurn(0);
             }
         }
@@ -214,9 +254,14 @@ public class HiveLocalGame extends LocalGame {
             // Iterate through board to find selected piece's location
             for(int row = 0; row < board.length; row++) {
                 for(int col = 0; col < board.length; col++) {
-                    if(board[row][col] == select.piece) {
-                        // Insert highlight code here
 
+
+                    if(board[row][col] != HiveGameState.piece.EMPTY) {
+                        for(int row2 = 0; row2 < board.length; row2++) {
+                            for(int col2 = 0; col2 < board.length; col2++) {
+
+                            }
+                        }
                     }
                 }
             }
